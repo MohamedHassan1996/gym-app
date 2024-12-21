@@ -20,8 +20,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('date_of_birth')->nullable();
             $table->boolean('gender')->default(0);
-            $table->foreignId('user_id')->constrained($this->getMainDatabaseName() .'.users')->onDelete('cascade');
-            $this->createdUpdatedByRelationship($table);
+            $table->unsignedBigInteger('user_id')->nullable();
+            //$table->foreignId('user_id')->constrained($this->getMainDatabaseName() .'.users')->onDelete('cascade');
+            //$this->createdUpdatedByRelationship($table);
             $table->softDeletes();
             $table->timestamps();
         });

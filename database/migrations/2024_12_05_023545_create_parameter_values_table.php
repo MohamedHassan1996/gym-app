@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->foreignId('parameter_id')->constrained('parameters')->onDelete('cascade');
-            $this->CreatedUpdatedByRelationship($table);
+            //$this->CreatedUpdatedByRelationship($table);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

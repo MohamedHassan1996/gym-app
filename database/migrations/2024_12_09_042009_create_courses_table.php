@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
             $table->foreignId('sport_category_id')->constrained('sport_categories')->onDelete('cascade');
-            $this->createdUpdatedByRelationship($table);
+            //$this->createdUpdatedByRelationship($table);
             $table->softDeletes();
             $table->timestamps();
         });

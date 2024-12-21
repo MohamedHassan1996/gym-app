@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->smallInteger('order');
-            $this->CreatedUpdatedByRelationship($table);
+            $table->softDeletes();
+            //$this->CreatedUpdatedByRelationship($table);
             $table->timestamps();
         });
     }

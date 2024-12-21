@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $this->CreatedUpdatedByRelationship($table);
+            //$this->CreatedUpdatedByRelationship($table);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
