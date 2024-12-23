@@ -122,7 +122,7 @@ class SportCategoryController extends Controller
             $this->sportCategoryService->deleteSportCategory($request->sportCategoryId);
             DB::commit();
             return response()->json([
-                'message' => 'تم حذف المستخدم بنجاح!'
+                'message' => __('messages.success.deleted')
             ], 200);
 
         } catch (\Exception $e) {
