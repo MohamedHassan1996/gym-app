@@ -10,7 +10,7 @@ use App\Http\Resources\Trainer\AllTrainerCollection;
 use App\Http\Resources\Trainer\TrainerResource;
 use App\Utils\PaginateCollection;
 use App\Services\Trainer\TrainerService;
-use App\Services\User\userService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SwitchDbConnection;
