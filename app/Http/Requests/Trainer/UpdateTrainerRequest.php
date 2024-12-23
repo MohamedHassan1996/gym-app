@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Trainer;
 
+use App\Enums\User\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
 
 class UpdateTrainerRequest extends FormRequest
@@ -43,6 +45,7 @@ class UpdateTrainerRequest extends FormRequest
             'dateOfBirth' => 'required',
             'gender' => 'required',
             'sportCategoryIds' => 'required',
+            'role' => ['required', new Enum(UserType::class)],
         ];
     }
 
