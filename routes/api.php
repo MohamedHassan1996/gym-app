@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('v1/auth')->group(function(){
+Route::prefix('v1/{locale}/auth')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

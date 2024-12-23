@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SportCategory extends Model
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasFactory;
 
     protected $connection = 'tenant';
     protected $fillable = [

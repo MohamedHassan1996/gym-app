@@ -5,6 +5,9 @@
 /public/storage
 /storage/*.key
 /vendor
+/config/database.php
+/app/Http/Controllers/Dashboard/SubscriptionController
+.env
 .env.backup
 .env.production
 Homestead.json
