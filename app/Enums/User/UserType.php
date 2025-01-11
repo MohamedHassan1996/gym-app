@@ -6,6 +6,7 @@ enum UserType: int{
 
     case ADMIN = 1;
     case CLIENT = 0;
+    case TRAINER = 2;
 
     public static function values(): array
     {
