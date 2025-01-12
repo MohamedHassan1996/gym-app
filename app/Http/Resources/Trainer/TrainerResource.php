@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Trainer;
 
+use App\Http\Resources\User\AllUserDataResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +17,7 @@ class TrainerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = (new UserResource($this->user))->toArray($request);
+        $user = (new AllUserDataResource($this->user))->toArray($request);
 
         return array_merge([
             'trainerId' => $this->id,

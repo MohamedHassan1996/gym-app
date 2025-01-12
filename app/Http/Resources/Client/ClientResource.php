@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Client;
 
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\AllUserDataResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +16,7 @@ class ClientResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = (new UserResource($this->user))->toArray($request);
+        $user = (new AllUserDataResource($this->user))->toArray($request);
 
         return array_merge([
             'clientId' => $this->id,

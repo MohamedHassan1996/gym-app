@@ -20,8 +20,6 @@ class UserResource extends JsonResource
             'userId' => $this->id,
             'name' => $this->name?$this->name:"",
             'email' => $this->email?$this->email:"",
-            'phone' => $this->phone?$this->phone:"",
-            'address' => $this->address?$this->address:"",
             'status' => $this->status,
             'role' => $this->role,
             'avatar' => $this->avatar?Storage::disk('public')->url($this->avatar):"",
