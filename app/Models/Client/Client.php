@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
 {
-    use HasFactory, CreatedUpdatedBy, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'tenant';
 
