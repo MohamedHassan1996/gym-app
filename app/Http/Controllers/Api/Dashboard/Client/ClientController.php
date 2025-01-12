@@ -10,7 +10,7 @@ use App\Http\Resources\Client\AllClientCollection;
 use App\Http\Resources\Client\ClientResource;
 use App\Utils\PaginateCollection;
 use App\Services\Client\ClientService;
-use App\Services\User\userService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
