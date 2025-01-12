@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Trainer;
 
 use App\Http\Resources\User\AllUserDataResource;
-use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
