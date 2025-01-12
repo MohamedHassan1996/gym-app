@@ -5,16 +5,13 @@ namespace App\Http\Controllers\Api\Dashboard\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\CreateClientRequest;
 use App\Http\Requests\Client\UpdateClientRequest;
-use App\Http\Resources\Client\AllClientDataResource;
 use App\Http\Resources\Client\AllClientCollection;
 use App\Http\Resources\Client\ClientResource;
 use App\Utils\PaginateCollection;
 use App\Services\Client\ClientService;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Traits\SwitchDbConnection;
 
 class ClientController extends Controller
@@ -23,7 +20,7 @@ class ClientController extends Controller
     protected $clientService;
     protected $userService;
 
-    public function __construct(ClientService $clientService, userService $userService)
+    public function __construct(ClientService $clientService, UserService $userService)
     {
         $this->middleware('auth:api');
         /*$this->middleware('permission:all_clients', ['only' => ['index']]);
