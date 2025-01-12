@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Enums\User\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
 
 class UpdateClientRequest extends FormRequest
@@ -42,6 +44,7 @@ class UpdateClientRequest extends FormRequest
             'description' => 'required',
             'dateOfBirth' => 'required',
             'gender' => 'required',
+            'role' => ['required', new Enum(UserType::class)],
         ];
     }
 

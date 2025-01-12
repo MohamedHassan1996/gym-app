@@ -36,7 +36,7 @@ class AllClientCollection extends ResourceCollection
 
         return [
             "result" => [
-                'trainers' => AllTrainerResource::collection(($this->collection)->values()->all()),
+                'clients' => AllClientResource::collection(($this->collection)->values()->all()),
             ],
             'pagination' => $this->pagination
         ];

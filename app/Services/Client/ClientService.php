@@ -32,8 +32,6 @@ class ClientService{
     public function createClient(array $clientData): Client
     {
 
-        dd($clientData);
-
         $client = $this->client::create([
             'description' => $clientData['description'],
             'date_of_birth' => $clientData['dateOfBirth'],
@@ -60,7 +58,6 @@ class ClientService{
         $client->date_of_birth = $clientData['dateOfBirth'];
         $client->gender = $clientData['gender'];
         $client->user_id = $clientData['userId'];
-        $client->sport_category_id = $clientData['sportCategoryId'];
         $client->save();
 
         return $client;

@@ -17,11 +17,10 @@ class AllClientResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'trainerId' => $this->id,
+            'clientId' => $this->id,
             'name' => $this->user->name,
-            'phone' => $this->user,
+            'phone' => $this->user->phone,
             'gender' => $this->gender,
-            'sportCategoryNames' => $this->sportCategories->pluck('name')->toArray(),
         ];
     }
 }

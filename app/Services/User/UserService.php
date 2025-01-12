@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Upload\UploadService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -36,6 +37,7 @@ class UserService{
             ])->get();
 
         return $users;
+
 
     }
 

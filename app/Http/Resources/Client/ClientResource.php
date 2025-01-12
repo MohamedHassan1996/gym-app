@@ -19,7 +19,7 @@ class ClientResource extends JsonResource
         $user = (new UserResource($this->user))->toArray($request);
 
         return array_merge([
-            'trainerId' => $this->id,
+            'clientId' => $this->id,
             'name' => $this->name,
             'description' => $this->description ?? '',
             'dateOfBirth' => $this->date_of_birth ?? '',
