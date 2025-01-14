@@ -33,8 +33,8 @@ class ClientService{
     {
 
         $client = $this->client::create([
-            'description' => $clientData['description'],
-            'date_of_birth' => $clientData['dateOfBirth'],
+            'description' => $clientData['description']??'',
+            'date_of_birth' => $clientData['dateOfBirth']??null,
             'gender' => $clientData['gender'],
             'user_id' => $clientData['userId'],
         ]);
@@ -54,8 +54,8 @@ class ClientService{
 
         $client = $this->client::find($clientData['clientId']);
 
-        $client->description = $clientData['description'];
-        $client->date_of_birth = $clientData['dateOfBirth'];
+        $client->description = $clientData['description']??'';
+        $client->date_of_birth = $clientData['dateOfBirth']??null;
         $client->gender = $clientData['gender'];
         $client->user_id = $clientData['userId'];
         $client->save();

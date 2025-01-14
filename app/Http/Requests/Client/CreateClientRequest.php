@@ -43,8 +43,8 @@ class CreateClientRequest extends FormRequest
                 Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],
-            'description' => 'required',
-            'dateOfBirth' => 'required',
+            'description' => 'nullable',
+            'dateOfBirth' => 'nullable',
             'gender' => 'required',
             'role' => 'required',
         ];
