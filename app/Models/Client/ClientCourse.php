@@ -16,7 +16,7 @@ class ClientCourse extends Model
     protected $fillable = [
         'client_id',
         'course_id',
-        'subscription_date',
+        'start_date',
         'status',
     ];
 

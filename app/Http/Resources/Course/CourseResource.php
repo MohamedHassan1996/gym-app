@@ -4,7 +4,7 @@ namespace App\Http\Resources\Course;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Illuminate\Support\Facades\Storage;
 
 class CourseResource extends JsonResource
 {
@@ -16,6 +16,26 @@ class CourseResource extends JsonResource
     public function toArray(Request $request): array
     {
 
+        $trainers = $this->trainers->map(function ($trainer) {
+            return [
+                'trainerId' => $trainer->id,
+                'name' => $trainer->user?->name??"",
+                'avatar' => $trainer->user?->avatar ? Storage::disk('public')->url($trainer->user->avatar) :""
+            ];
+        });
+
+        $clients = [];
+
+        if($this->clients) {
+            $clients = $this->clients->map(function ($client) {
+                return [
+                    'clientId' => $client->id,
+                    'name' => $client->user?->name??"",
+                    'avatar' => $client->user?->avatar ? Storage::disk('public')->url($client->user->avatar) :""
+                ];
+            });
+        }
+
         return [
             'courseId' => $this->id,
             'startAt' => $this->start_at,
@@ -24,8 +44,12 @@ class CourseResource extends JsonResource
             'classes' => $this->classes??[],
             'price' => $this->price,
             'isActive' => $this->is_active,
-            'trainerId' => $this->trainer_id,
-            'sportCategoryId' => $this->sport_category_id
+            'trainers' => $trainers,
+            'sportCategory' => [
+                'sportCategoryId' => $this->sport_category_id,
+                'name' => $this->sportCategory?->name??"",
+            ],
+            'clients' => $clients
         ];
     }
 }

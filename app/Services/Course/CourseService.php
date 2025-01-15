@@ -23,7 +23,7 @@ class CourseService{
             ->allowedFilters([
                 //AllowedFilter::custom('search', new FilterCourse()), // Add a custom search filter
             ])
-            //->with('t')
+            ->with('clients', 'trainers', 'sportCategory')
             ->get();
 
         return $courses;
@@ -35,15 +35,17 @@ class CourseService{
 
 
         $course = Course::create([
+            'name' => $courseData['name'],
             'start_at' => $courseData['startAt'],
             'end_at' => $courseData['endAt'],
             'description' => $courseData['description'],
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
-            'trainer_id' => $courseData['trainerId'],
             'sport_category_id' => $courseData['sportCategoryId'],
         ]);
+
+        $course->trainers()->attach($courseData['trainerIds']);
 
         return $course;
 
@@ -51,7 +53,7 @@ class CourseService{
 
     public function editCourse(int $courseId)
     {
-        return Course::find($courseId);
+        return Course::with('trainers', 'trainers.user')->find($courseId);
     }
 
     public function updateCourse(array $courseData): Course
@@ -61,15 +63,17 @@ class CourseService{
         $course = Course::find($courseData['courseId']);
 
         $course->update([
+            'name' => $courseData['name'],
             'start_at' => $courseData['startAt'],
             'end_at' => $courseData['endAt'],
             'description' => $courseData['description'],
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
-            'trainer_id' => $courseData['trainerId'],
             'sport_category_id' => $courseData['sportCategoryId'],
         ]);
+
+        $course->trainers()->sync($courseData['trainerIds']);
 
         return $course;
 

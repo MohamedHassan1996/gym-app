@@ -17,12 +17,10 @@ class AllCourseResource extends JsonResource
     {
         return [
             'courseId' => $this->id,
-            'startAt' => $this->start_at,
-            'endAt' => $this->end_at,
-            'price' => $this->price,
+            'name' => $this->name,
+            'classes' => $this->classes,
             'isActive' => $this->is_active,
-            'trainerName' => $this->trainer?->user?->name,
-            'name' => $this->name
+            'totalSubscribers' => $this->activeSubscriptions??0,
         ];
     }
 }

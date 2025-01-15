@@ -3,6 +3,8 @@
 namespace App\Models\Course;
 
 use App\Enums\Course\CourseStatus;
+use App\Models\Client\Client;
+use App\Models\Client\ClientCourse;
 use App\Models\Sport\SportCategory;
 use App\Models\Trainer\Trainer;
 use App\Traits\CreatedUpdatedBy;
@@ -12,18 +14,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    use HasFactory, CreatedUpdatedBy, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'tenant';
 
     protected $fillable = [
+        'name',
         'start_at',
         'end_at',
         'description',
         'classes',
         'price',
         'is_active',
-        'trainer_id',
         'sport_category_id',
     ];
 
@@ -37,8 +39,18 @@ class Course extends Model
         return $this->belongsTo(SportCategory::class);
     }
 
-    public function trainer()
+    public function trainers()
     {
-        return $this->belongsTo(Trainer::class);
+        return $this->belongsToMany(Trainer::class, 'course_trainers', 'course_id', 'trainer_id');
+    }
+
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class, 'client_courses');
+    }
+
+    public function getActiveSubscriptionsAttribute()
+    {
+        return $this->clients()->count();
     }
 }

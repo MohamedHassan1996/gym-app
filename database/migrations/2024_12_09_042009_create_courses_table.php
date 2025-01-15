@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('classes')->nullable();
             $table->tinyInteger('is_active')->default(CourseStatus::INACTIVE->value);
             $table->decimal('price', 8, 2);
-            $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
+            //$table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
             $table->foreignId('sport_category_id')->constrained('sport_categories')->onDelete('cascade');
             //$this->createdUpdatedByRelationship($table);
             $table->softDeletes();

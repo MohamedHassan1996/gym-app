@@ -75,7 +75,7 @@ class ClientCourseController extends Controller
             'course_id' => $request->courseId,
             'client_id' => $request->clientId,
             'start_date' => $request->subscriptionDate,
-            'status' => $request->status,
+            'status' => 1,
         ]);
 
 
@@ -88,6 +88,7 @@ class ClientCourseController extends Controller
                 'subscription_date' => $newSubscriptionDate,
                 'price' => $course->price,
             ]);
+
 
             $newSubscriptionDate = $newSubscriptionDate->addMonth();
 

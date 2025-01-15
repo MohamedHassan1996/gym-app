@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
             $table->text('description')->nullable();
-            $table->tinyInteger('date_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->boolean('gender')->default(0);
             $table->unsignedBigInteger('user_id')->nullable();
             //$table->foreignId('user_id')->constrained($this->getMainDatabaseName().'.users')->onDelete('cascade');
-            $table->foreignId('sport_category_id')->constrained('sport_categories')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
