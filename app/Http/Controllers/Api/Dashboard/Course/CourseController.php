@@ -101,19 +101,11 @@ class CourseController extends Controller
             DB::beginTransaction();
             $data = $updateCourseRequest->validated();
 
-             // Create user
-             $user = $this->userService->updateUser([
-                 ...$data,
-                 'roleId' => 1,
-             ]);
 
              $this->switchDatabase();
 
 
-            $this->courseService->updateCourse([
-                'userId' => $user->id,
-                ...$data,
-            ]);
+            $this->courseService->updateCourse($data);
             DB::commit();
             return response()->json([
                 'message' => __('messages.success.updated')

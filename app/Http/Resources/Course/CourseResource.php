@@ -38,12 +38,14 @@ class CourseResource extends JsonResource
 
         return [
             'courseId' => $this->id,
+            'name' => $this->name,
             'startAt' => $this->start_at,
             'endAt' => $this->end_at,
             'description' => $this->description??'',
             'classes' => $this->classes??[],
             'price' => $this->price,
             'isActive' => $this->is_active,
+            'totalSubscribers' => $this->activeSubscriptions??0,
             'trainers' => $trainers,
             'sportCategory' => [
                 'sportCategoryId' => $this->sport_category_id,
