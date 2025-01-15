@@ -9,7 +9,7 @@ use App\Http\Resources\Course\AllCourseCollection;
 use App\Http\Resources\Course\CourseResource;
 use App\Utils\PaginateCollection;
 use App\Services\Course\CourseService;
-use App\Services\User\userService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SwitchDbConnection;
