@@ -2,7 +2,7 @@
 
 namespace App\Services\Select\Parameter;
 
-use App\Models\Parameter\parameterValue;
+use App\Models\Parameter\ParameterValue;
 use App\Traits\SwitchDbConnection;
 
 class ParameterSelectService
@@ -11,7 +11,7 @@ class ParameterSelectService
     public function getAllParameters(int $parameterId)
     {
         $this->switchDatabase();
-        return parameterValue::select(['id as value', 'name as label'])->where('parameter_id', $parameterId)->get();
+        return ParameterValue::select(['id as value', 'name as label'])->where('parameter_id', $parameterId)->get();
     }
 
     /*public function getAllSubCategories(int $categoryId)
