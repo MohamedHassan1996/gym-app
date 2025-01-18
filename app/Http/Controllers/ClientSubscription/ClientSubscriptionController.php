@@ -187,4 +187,24 @@ class ClientSubscriptionController extends Controller
         }
 
     }
+
+    public function chageStatus(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+            $this->switchDatabase();
+            $courseSubscription = ClientCourse::find($request->clientCourseId);
+            $courseSubscription->status = $request->status;
+            $courseSubscription->save();
+            DB::commit();
+
+            return response()->json([
+                'message' => __('messages.success.updated')
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+    }
 }
