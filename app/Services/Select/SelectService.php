@@ -7,6 +7,7 @@ use App\Services\Select\Company\BranchSelectService;
 use App\Services\Select\Company\CompanySelectService;
 use App\Services\Select\Company\CustomerSelectService;
 use App\Services\Select\Parameter\ParameterSelectService;
+use App\Services\Select\SportCategory\CourseSelectService;
 use App\Services\Select\SportCategory\SportCategorySelectService;
 
 class SelectService
@@ -44,10 +45,13 @@ class SelectService
     {
         $selectServiceMap = [
             'users' => ['getAllUsers', UserSelectService::class],
+            'clients' => ['getAllClients', ClientSelectService::class],
+            'trainers' => ['getAllTrainers', TrainerSelectService::class],
             'roles' => ['getAllRoles', RoleSelectService::class],
             'permissions' => ['getAllPermissions', PermissionSelectService::class],
             'parameters' => ['getAllParameters', ParameterSelectService::class],
             'sportCategories' => ['getAllSportCategories', SportCategorySelectService::class],
+            'courses' => ['getAllCourses', CourseSelectService::class],
         ];
 
         $paramValue = null; // Initialize paramValue

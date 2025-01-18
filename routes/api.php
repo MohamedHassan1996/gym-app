@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Dashboard\Client\ClientController;
+use App\Http\Controllers\Api\Dashboard\Client\ClientDocumentController;
 use App\Http\Controllers\Api\Dashboard\Course\CourseController;
 use App\Http\Controllers\Api\Dashboard\SportCategory\SportCategoryController;
 use App\Http\Controllers\Api\Dashboard\User\UserController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\Dashboard\SubscriptionController;
 use App\Http\Controllers\Api\Dashboard\Trainer\TrainerController;
 use App\Http\Controllers\Api\Dashboard\Select\SelectController;
 use App\Http\Controllers\ClientCourse\ClientCourseController;
+use App\Http\Controllers\ClientSubscription\ClientSubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -76,10 +78,30 @@ Route::prefix('v1/{locale}/dashboard/clients')->where(['lang' => 'it|en'])->grou
     Route::delete('delete', [ClientController::class, 'delete']);
 });
 
+Route::prefix('v1/{locale}/dashboard/client-subscriptions')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [ClientSubscriptionController::class, 'index']);
+    Route::post('create', [ClientSubscriptionController::class, 'create']);
+    Route::get('edit', [ClientSubscriptionController::class, 'edit']);
+});
+
 Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [ClientCourseController::class, 'index']);
-    Route::post('create', [ClientCourseController::class, 'create']);
 });
+
+Route::prefix('v1/{locale}/dashboard/client-new-subscription')->where(['lang' => 'it|en'])->group(function(){
+    Route::post('create', [ClientSubscriptionController::class, 'create']);
+});
+
+Route::prefix('v1/{locale}/dashboard/client-documents')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [ClientDocumentController::class, 'index']);
+    Route::post('create', [ClientDocumentController::class, 'create']);
+    Route::get('edit', [ClientDocumentController::class, 'edit']);
+    Route::put('update', [ClientDocumentController::class, 'update']);
+    Route::delete('delete', [ClientDocumentController::class, 'delete']);
+});
+
+
+
 
 
 Route::prefix('v1/{lang}/dashboard/selects')->where(['lang' => 'it|en'])->group(function(){

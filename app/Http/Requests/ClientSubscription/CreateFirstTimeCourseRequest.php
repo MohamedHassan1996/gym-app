@@ -31,8 +31,8 @@ class CreateFirstTimeCourseRequest extends FormRequest
             'courseId' => 'required',
             'clientId' => 'required',
             'subscriptionDate' => 'required',
-            'paid' => 'required',
-            'month' => 'required',
+            //'paid' => 'required',
+            'numberOfMonths' => 'required',
         ];
     }
 

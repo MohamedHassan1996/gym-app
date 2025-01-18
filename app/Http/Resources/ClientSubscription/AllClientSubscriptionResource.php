@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\ClientCourse;
+namespace App\Http\Resources\ClientSubscription;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-class AllClientCourseResource extends JsonResource
+class AllClientSubscriptionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,10 @@ class AllClientCourseResource extends JsonResource
         return [
             'clientCourseId' => $this->id,
             'registrationDate' => $this->start_date,
+            'clientName' => $this->client->user->name,
             //'lastSubscribedDate' => $this->subscriptions->first()->subscription_date,
-            //'leftDaysForNextSubscription' => $this->getDaysLeftForNextSubscription(),
+            'leftDaysForNextSubscription' => $this->getDaysLeftForNextSubscription(),
             'courseName' => $this->course->sportCategory->name,
-            'status' => $this->status
         ];
 
     }
