@@ -43,6 +43,7 @@ class ClientCourseController extends Controller
             },
         ])
         ->where('client_id', $request->clientId)
+        ->whereNull('deleted_at')
         ->get();
 
         return response()->json(
