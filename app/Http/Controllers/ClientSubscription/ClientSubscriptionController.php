@@ -38,7 +38,7 @@ class ClientSubscriptionController extends Controller
 
         $filters = $request->filter;
 
-        $clientCourses = ClientCourse::select('id', 'client_id', 'course_id', 'start_date')
+        $clientCourses = ClientCourse::select('id', 'client_id', 'course_id', 'start_date', 'status')
             ->with([
                 'client',
                 'course' => function ($query) {
