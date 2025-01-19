@@ -12,12 +12,14 @@ use App\Models\Course\Course;
 use App\Models\Trainer\Trainer;
 use App\Utils\PaginateCollection;
 use App\Services\User\UserService;
+use App\Traits\SwitchDbConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
 {
+    use SwitchDbConnection;
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -38,6 +40,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
+        $this->switchDatabase();
 
         $clients = Client::count();
         $trainers = Trainer::count();
