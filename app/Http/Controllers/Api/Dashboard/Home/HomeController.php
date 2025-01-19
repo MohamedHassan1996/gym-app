@@ -47,7 +47,7 @@ class HomeController extends Controller
         $clients = Client::count();
         $trainers = Trainer::count();
         $courses = Course::count();
-        //$subscriptions = ClientCourse::where('status', 1)->count();
+        $subscriptions = ClientCourse::where('status', 1)->count();
         $endedSubscriptions = 0;
 
         return response()->json(
