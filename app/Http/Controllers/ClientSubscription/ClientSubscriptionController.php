@@ -156,7 +156,7 @@ class ClientSubscriptionController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => __('messages.success.created')
+                'message' => __('messages.success.updated')
             ], 200);
 
         } catch (\Exception $e) {
