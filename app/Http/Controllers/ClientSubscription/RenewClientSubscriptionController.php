@@ -30,7 +30,7 @@ class RenewClientSubscriptionController extends Controller
         $this->middleware('permission:change_client_status', ['only' => ['changeStatus']]);*/
     }
 
-    public function create(CreateFirstTimeCourseRequest $request)
+    public function create(Request $request)
     {
         try{
             DB::beginTransaction();
