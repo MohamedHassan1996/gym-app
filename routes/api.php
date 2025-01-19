@@ -85,7 +85,7 @@ Route::prefix('v1/{locale}/dashboard/subscriptions')->where(['lang' => 'it|en'])
     Route::get('edit', [ClientSubscriptionController::class, 'edit']);
     Route::put('update', [ClientSubscriptionController::class, 'update']);
     Route::delete('delete', [ClientSubscriptionController::class, 'delete']);
-    Route::post('change-status', [ClientSubscriptionController::class, 'changeStatus']);
+    Route::put('change-status', [ClientSubscriptionController::class, 'changeStatus']);
 });
 
 Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en'])->group(function(){

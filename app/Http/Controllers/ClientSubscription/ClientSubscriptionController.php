@@ -188,7 +188,7 @@ class ClientSubscriptionController extends Controller
 
     }
 
-    public function chageStatus(Request $request)
+    public function changeStatus(Request $request)
     {
         try{
             DB::beginTransaction();
