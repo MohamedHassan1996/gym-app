@@ -169,7 +169,7 @@ class ClientSubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         try{
             DB::beginTransaction();
