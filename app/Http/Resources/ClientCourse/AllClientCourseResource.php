@@ -22,7 +22,7 @@ class AllClientCourseResource extends JsonResource
             //'lastSubscribedDate' => $this->subscriptions->first()->subscription_date,
             //'leftDaysForNextSubscription' => $this->getDaysLeftForNextSubscription(),
             'courseName' => $this->course->sportCategory->name,
-            'status' => $this->status
+            'status' => (int)$this->status
         ];
 
     }
