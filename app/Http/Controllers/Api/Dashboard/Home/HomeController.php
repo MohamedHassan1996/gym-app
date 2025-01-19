@@ -51,6 +51,7 @@ class HomeController extends Controller
                 'totalTrainers' => $trainers,
                 'totalCourses' => $courses,
                 'totalSubscriptions' => $subscriptions,
+                'endedSubscriptions' => $endedSubscriptions,
             ]
         , 200);
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Dashboard\Client\ClientController;
 use App\Http\Controllers\Api\Dashboard\Client\ClientDocumentController;
 use App\Http\Controllers\Api\Dashboard\Course\CourseController;
+use App\Http\Controllers\Api\Dashboard\Home\HomeController;
 use App\Http\Controllers\Api\Dashboard\SportCategory\SportCategoryController;
 use App\Http\Controllers\Api\Dashboard\User\UserController;
 use App\Http\Controllers\Api\Dashboard\SubscriptionController;
@@ -103,8 +104,9 @@ Route::prefix('v1/{locale}/dashboard/client-documents')->where(['lang' => 'it|en
     Route::delete('delete', [ClientDocumentController::class, 'delete']);
 });
 
-
-
+Route::prefix('v1/{locale}/dashboard')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [HomeController::class, 'index']);
+});
 
 
 Route::prefix('v1/{lang}/dashboard/selects')->where(['lang' => 'it|en'])->group(function(){
