@@ -8,6 +8,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\AllUserDataResource;
 use App\Http\Resources\User\AllUserCollection;
 use App\Models\Client\Client;
+use App\Models\Client\ClientCourse;
 use App\Models\Course\Course;
 use App\Models\Trainer\Trainer;
 use App\Utils\PaginateCollection;
@@ -46,7 +47,7 @@ class HomeController extends Controller
         $clients = Client::count();
         $trainers = Trainer::count();
         $courses = Course::count();
-        $subscriptions = DB::table('client_courses')->where('status', 1)->count();
+        $subscriptions = ClientCourse::where('status', 1)->count();
         $endedSubscriptions = 0;
 
         return response()->json(
