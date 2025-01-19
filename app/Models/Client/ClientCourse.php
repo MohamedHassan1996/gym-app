@@ -20,6 +20,10 @@ class ClientCourse extends Model
         'status',
     ];
 
+    protected $cast = [
+        'status' => 'integer'
+    ];
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id', 'id');
