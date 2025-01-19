@@ -52,11 +52,11 @@ class HomeController extends Controller
 
         return response()->json(
             [
-                'totalClients' => $clients,
-                'totalTrainers' => $trainers,
-                'totalCourses' => $courses,
-                'totalSubscriptions' => $subscriptions??"",
-                'endedSubscriptions' => $endedSubscriptions,
+                'totalClients' => $clients??0,
+                'totalTrainers' => $trainers??0,
+                'totalCourses' => $courses??0,
+                'totalSubscriptions' => $subscriptions??0,
+                'endedSubscriptions' => $endedSubscriptions??0,
             ]
         , 200);
 
