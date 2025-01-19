@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Dashboard\Trainer\TrainerController;
 use App\Http\Controllers\Api\Dashboard\Select\SelectController;
 use App\Http\Controllers\ClientCourse\ClientCourseController;
 use App\Http\Controllers\ClientSubscription\ClientSubscriptionController;
+use App\Http\Controllers\ClientSubscription\RenewClientSubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -93,7 +94,7 @@ Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en']
 });
 
 Route::prefix('v1/{locale}/dashboard/new-subscription')->where(['lang' => 'it|en'])->group(function(){
-    Route::post('create', [ClientSubscriptionController::class, 'create']);
+    Route::post('create', [RenewClientSubscriptionController::class, 'create']);
 });
 
 Route::prefix('v1/{locale}/dashboard/client-documents')->where(['lang' => 'it|en'])->group(function(){
