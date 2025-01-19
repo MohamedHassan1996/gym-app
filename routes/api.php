@@ -78,7 +78,7 @@ Route::prefix('v1/{locale}/dashboard/clients')->where(['lang' => 'it|en'])->grou
     Route::delete('delete', [ClientController::class, 'delete']);
 });
 
-Route::prefix('v1/{locale}/dashboard/client-subscriptions')->where(['lang' => 'it|en'])->group(function(){
+Route::prefix('v1/{locale}/dashboard/subscriptions')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [ClientSubscriptionController::class, 'index']);
     Route::post('create', [ClientSubscriptionController::class, 'create']);
     Route::get('edit', [ClientSubscriptionController::class, 'edit']);
@@ -91,7 +91,7 @@ Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en']
     Route::get('', [ClientCourseController::class, 'index']);
 });
 
-Route::prefix('v1/{locale}/dashboard/client-new-subscription')->where(['lang' => 'it|en'])->group(function(){
+Route::prefix('v1/{locale}/dashboard/new-subscription')->where(['lang' => 'it|en'])->group(function(){
     Route::post('create', [ClientSubscriptionController::class, 'create']);
 });
 
@@ -116,7 +116,7 @@ Route::prefix('v1/{lang}/dashboard/selects')->where(['lang' => 'it|en'])->group(
 
 
 
-Route::post('v1/subscriptions', [SubscriptionController::class, 'subscribe']);
+//Route::post('v1/subscriptions', [SubscriptionController::class, 'subscribe']);
 
 
 /*Route::post('/login', [AuthController::class, 'login']);
