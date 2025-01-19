@@ -126,7 +126,7 @@ class ClientSubscriptionController extends Controller
 
         return response()->json([
             'data' => [
-                'clientSubscriptionId' => $clientCourseSubscriptions->id,
+                'clientCourseId' => $clientCourse->id,
                 'subscriptionDate' => $clientCourseSubscriptions->subscription_date,
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months
             ]
