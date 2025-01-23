@@ -20,6 +20,7 @@ class AllTrainerResource extends JsonResource
             'trainerId' => $this->id,
             'name' => $this->user->name,
             'phone' => $this->user->phone,
+            'status' => $this->user->status,
             'gender' => $this->gender,
             'sportCategoryNames' => $this->sportCategories?->pluck('name')->toArray()??"",
         ];

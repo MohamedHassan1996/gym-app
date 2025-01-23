@@ -20,6 +20,7 @@ class AllClientResource extends JsonResource
             'clientId' => $this->id,
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'status' => $this->user->status,
             'avatar' => $this->user->avatar?Storage::disk('public')->url($this->user->avatar):"",
             'gender' => $this->gender,
         ];
