@@ -48,7 +48,7 @@ class ClientDocumentController extends Controller
      public function create(Request $request)
      {
          try {
-             DB::beginTransaction();
+             DB::connection('tenant')->beginTransaction();
 
              $this->switchDatabase();
 
@@ -61,7 +61,7 @@ class ClientDocumentController extends Controller
                 'end_at' => $data['endAt'],
             ]);
 
-             DB::commit();
+             DB::connection('tenant')->commit();
 
              return response()->json([
                 'message' => __('messages.success.created')
@@ -96,7 +96,7 @@ class ClientDocumentController extends Controller
     {
 
         try {
-            DB::beginTransaction();
+            DB::connection('tenant')->beginTransaction();
             $data = $request->all();
 
             $this->switchDatabase();
@@ -107,7 +107,7 @@ class ClientDocumentController extends Controller
                 'end_at' => $data['endAt'],
                 'document_type_id' => $data['documentTypeId']??null,
             ]);
-            DB::commit();
+            DB::connection('tenant')->commit();
             return response()->json([
                 'message' => __('messages.success.updated')
             ], 200);
@@ -128,10 +128,10 @@ class ClientDocumentController extends Controller
         try {
             $this->switchDatabase();
 
-            DB::beginTransaction();
+            DB::connection('tenant')->beginTransaction();
             $document = ClientDocument::find($request->clientDocumentId);
             $document->delete();
-            DB::commit();
+            DB::connection('tenant')->commit();
             return response()->json([
                 'message' => __('messages.success.deleted')
             ], 200);

@@ -34,8 +34,8 @@ class CreateClientRequest extends FormRequest
                 'required',
                 'unique:users,email'
             ],
-            'phone' => '',
-            'address' => '',
+            'phone' => 'nullable',
+            'address' => 'nullable',
             'status' => ['required', new Enum(UserStatus::class)],
             'password'=> [
                 'required',
@@ -47,6 +47,7 @@ class CreateClientRequest extends FormRequest
             'dateOfBirth' => 'nullable',
             'gender' => 'required',
             'role' => 'required',
+            'clientCourses' => 'nullable',
         ];
     }
 

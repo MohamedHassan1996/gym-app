@@ -23,7 +23,7 @@ class CourseService{
             ->allowedFilters([
                 //AllowedFilter::custom('search', new FilterCourse()), // Add a custom search filter
             ])
-            ->with('clients', 'trainers', 'sportCategory')
+            ->with('clients', 'trainers')
             ->get();
 
         return $courses;
@@ -42,7 +42,7 @@ class CourseService{
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
-            'sport_category_id' => $courseData['sportCategoryId'],
+            //'sport_category_id' => $courseData['sportCategoryId'],
         ]);
 
         $course->trainers()->attach($courseData['trainerIds']);
@@ -70,7 +70,7 @@ class CourseService{
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
-            'sport_category_id' => $courseData['sportCategoryId'],
+            //'sport_category_id' => $courseData['sportCategoryId'],
         ]);
 
         $course->trainers()->sync($courseData['trainerIds']);
@@ -85,9 +85,9 @@ class CourseService{
 
         $course = Course::find($courseId);
 
-        if($course->user){
+        /*if($course->user){
             $course->user->delete();
-        }
+        }*/
 
         $course->delete();
 

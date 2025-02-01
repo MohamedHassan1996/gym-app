@@ -31,13 +31,13 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required',
             //'username'=> ['required', "unique:users,username,{$this->userId}"],
             'email'=> ['required', "unique:users,email,{$this->userId}"],
-            'phone' => '',
-            'address' => '',
+            'phone' => 'nullable',
+            'address' => 'nullable',
             'status' => 'required',
             'password'=> [
                 'sometimes',
                 'nullable',
-                Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
+                Password::min(8)
             ],
             'roleId'=> 'required',
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],

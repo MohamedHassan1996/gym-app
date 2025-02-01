@@ -32,8 +32,8 @@ class UpdateClientRequest extends FormRequest
             'name' => 'required',
             //'username'=> ['required', "unique:users,username,{$this->userId}"],
             'email'=> ['required', "unique:users,email,{$this->userId}"],
-            'phone' => '',
-            'address' => '',
+            'phone' => 'nullable',
+            'address' => 'nullable',
             'status' => 'required',
             'password'=> [
                 'sometimes',

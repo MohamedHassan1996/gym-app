@@ -47,10 +47,10 @@ class CourseResource extends JsonResource
             'isActive' => $this->is_active,
             'totalSubscribers' => $this->activeSubscriptions??0,
             'trainers' => $trainers,
-            'sportCategory' => [
-                'sportCategoryId' => $this->sport_category_id,
-                'name' => $this->sportCategory?->name??"",
-            ],
+            // 'sportCategory' => [
+            //     'sportCategoryId' => $this->sport_category_id,
+            //     'name' => $this->sportCategory?->name??"",
+            // ],
             'clients' => $clients
         ];
     }

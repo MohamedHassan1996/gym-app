@@ -7,12 +7,16 @@ use App\Http\Requests\Client\CreateClientRequest;
 use App\Http\Requests\Client\UpdateClientRequest;
 use App\Http\Resources\Client\AllClientCollection;
 use App\Http\Resources\Client\ClientResource;
+use App\Models\Client\ClientCourse;
+use App\Models\Client\ClientCourseSubscription;
+use App\Models\Course\Course;
 use App\Utils\PaginateCollection;
 use App\Services\Client\ClientService;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SwitchDbConnection;
+use Carbon\Carbon;
 
 class ClientController extends Controller
 {
@@ -63,24 +67,47 @@ class ClientController extends Controller
              $user = $this->userService->createUser($data);
 
              $this->switchDatabase();
+             DB::connection('tenant')->beginTransaction();
+
              // Create client
-             $this->clientService->createClient([
+             $client = $this->clientService->createClient([
                  'userId' => $user->id,
                  ...$data,
              ]);
 
+             foreach($data['clientCourses'] as $clientCourseData){
+                $course = Course::find($clientCourseData['courseId']);
+                $courseClient = ClientCourse::create([
+                    'client_id' => $client->id,
+                    'course_id' => $clientCourseData['courseId'],
+                    'start_date' => $clientCourseData['subscriptionDate'],
+                    'status' => 1
+                ]);
+
+                ClientCourseSubscription::create([
+                    'client_course_id' => $courseClient->id,
+                    'subscription_date' => $clientCourseData['subscriptionDate'],
+                    'end_at' => Carbon::parse($clientCourseData['subscriptionDate'])->addMonths($clientCourseData['numberOfMonths']),
+                    'number_of_months' => $clientCourseData['numberOfMonths'],
+                    'price' => $course->price * $clientCourseData['numberOfMonths'],
+                ]);
+
+
+             }
+
              DB::commit();
+             DB::connection('tenant')->commit();
 
              return response()->json([
                 'message' => __('messages.success.created')
              ], 200);
 
-         } catch (\Exception $e) {
-             DB::rollBack();
-             return response()->json([
-                 'error' => $e->getMessage(),
-             ], 500);
-         }
+         } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
+        }
      }
 
     /**
@@ -114,6 +141,7 @@ class ClientController extends Controller
              ]);
 
              $this->switchDatabase();
+             DB::connection('tenant')->beginTransaction();
 
 
             $this->clientService->updateClient([
@@ -121,6 +149,8 @@ class ClientController extends Controller
                 ...$data,
             ]);
             DB::commit();
+            DB::connection('tenant')->commit();
+
             return response()->json([
                 'message' => __('messages.success.updated')
             ], 200);

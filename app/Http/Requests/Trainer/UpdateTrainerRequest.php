@@ -32,19 +32,18 @@ class UpdateTrainerRequest extends FormRequest
             'name' => 'required',
             //'username'=> ['required', "unique:users,username,{$this->userId}"],
             'email'=> ['required', "unique:users,email,{$this->userId}"],
-            'phone' => '',
-            'address' => '',
+            'phone' => 'nullable',
+            'address' => 'nullable',
             'status' => 'required',
             'password'=> [
                 'sometimes',
                 'nullable',
-                Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
+                Password::min(8)
             ],
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],
-            'description' => 'required',
-            'dateOfBirth' => 'required',
+            'description' => 'nullable',
+            'dateOfBirth' => 'nullable',
             'gender' => 'required',
-            'sportCategoryIds' => 'required',
             'role' => ['required', new Enum(UserType::class)],
         ];
     }

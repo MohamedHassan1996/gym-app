@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1/{locale}/auth')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('subscribe', [SubscriptionController::class, 'subscribe']);
 });
 
 Route::prefix('v1/{locale}/dashboard/users')->where(['lang' => 'it|en'])->group(function(){
@@ -48,13 +49,13 @@ Route::prefix('v1/{locale}/dashboard/users')->where(['lang' => 'it|en'])->group(
     Route::post('change-status', [UserController::class, 'changeStatus']);
 });
 
-Route::prefix('v1/{locale}/dashboard/sport-categories')->where(['lang' => 'it|en'])->group(function(){
-    Route::get('', [SportCategoryController::class, 'index']);
-    Route::post('create', [SportCategoryController::class, 'create']);
-    Route::get('edit', [SportCategoryController::class, 'edit']);
-    Route::put('update', [SportCategoryController::class, 'update']);
-    Route::delete('delete', [SportCategoryController::class, 'delete']);
-});
+// Route::prefix('v1/{locale}/dashboard/sport-categories')->where(['lang' => 'it|en'])->group(function(){
+//     Route::get('', [SportCategoryController::class, 'index']);
+//     Route::post('create', [SportCategoryController::class, 'create']);
+//     Route::get('edit', [SportCategoryController::class, 'edit']);
+//     Route::put('update', [SportCategoryController::class, 'update']);
+//     Route::delete('delete', [SportCategoryController::class, 'delete']);
+// });
 
 Route::prefix('v1/{locale}/dashboard/trainers')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [TrainerController::class, 'index']);

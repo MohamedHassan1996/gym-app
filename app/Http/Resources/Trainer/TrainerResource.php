@@ -24,7 +24,6 @@ class TrainerResource extends JsonResource
             'description' => $this->description ?? '',
             'dateOfBirth' => $this->date_of_birth ?? '',
             'gender' => $this->gender,
-            'sportCategoryIds' => $this->sportCategories->pluck('pivot.sport_category_id')->toArray(),
         ], $user);
     }
 }

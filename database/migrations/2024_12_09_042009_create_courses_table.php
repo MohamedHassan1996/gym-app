@@ -18,13 +18,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('start_at');
-            $table->date('end_at');
+            $table->date('end_at')->nullable();
             $table->text('description')->nullable();
             $table->json('classes')->nullable();
             $table->tinyInteger('is_active')->default(CourseStatus::INACTIVE->value);
             $table->decimal('price', 8, 2);
-            //$table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
-            $table->foreignId('sport_category_id')->constrained('sport_categories')->onDelete('cascade');
+            $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
+            //$table->foreignId('sport_category_id')->constrained('sport_categories')->onDelete('cascade');
             //$this->createdUpdatedByRelationship($table);
             $table->softDeletes();
             $table->timestamps();

@@ -35,19 +35,18 @@ class CreateTrainerRequest extends FormRequest
                 'required',
                 'unique:users,email'
             ],
-            'phone' => '',
-            'address' => '',
+            'phone' => 'nullable',
+            'address' => 'nullable',
             'status' => ['required', new Enum(UserStatus::class)],
             'password'=> [
                 'required',
                 'string',
-                Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
+                Password::min(8)
             ],
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],
-            'description' => 'required',
-            'dateOfBirth' => 'required',
+            'description' => 'nullable',
+            'dateOfBirth' => 'nullable',
             'gender' => 'required',
-            'sportCategoryIds' => 'required',
             'role' => ['required', new Enum(UserType::class)],
         ];
     }

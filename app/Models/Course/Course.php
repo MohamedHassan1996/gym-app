@@ -26,7 +26,6 @@ class Course extends Model
         'classes',
         'price',
         'is_active',
-        'sport_category_id',
     ];
 
     protected $casts = [
@@ -34,10 +33,10 @@ class Course extends Model
         'is_active' => CourseStatus::class
     ];
 
-    public function sportCategory()
-    {
-        return $this->belongsTo(SportCategory::class);
-    }
+    // public function sportCategory()
+    // {
+    //     return $this->belongsTo(SportCategory::class);
+    // }
 
     public function trainers()
     {

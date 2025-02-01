@@ -34,13 +34,13 @@ class TrainerService{
 
 
         $trainer = Trainer::create([
-            'description' => $trainerData['description'],
-            'date_of_birth' => $trainerData['dateOfBirth'],
+            'description' => $trainerData['description']??'',
+            'date_of_birth' => $trainerData['dateOfBirth']??null,
             'gender' => $trainerData['gender'],
             'user_id' => $trainerData['userId'],
         ]);
 
-        $trainer->sportCategories()->sync($trainerData['sportCategoryIds']);
+        //$trainer->sportCategories()->sync($trainerData['sportCategoryIds']);
 
         return $trainer;
 
@@ -57,13 +57,13 @@ class TrainerService{
 
         $trainer = Trainer::find($trainerData['trainerId']);
 
-        $trainer->description = $trainerData['description'];
-        $trainer->date_of_birth = $trainerData['dateOfBirth'];
+        $trainer->description = $trainerData['description']??'';
+        $trainer->date_of_birth = $trainerData['dateOfBirth']??null;
         $trainer->gender = $trainerData['gender'];
         $trainer->user_id = $trainerData['userId'];
         $trainer->save();
 
-        $trainer->sportCategories()->sync($trainerData['sportCategoryIds']);
+        //$trainer->sportCategories()->sync(ids: $trainerData['sportCategoryIds']);
 
 
         return $trainer;

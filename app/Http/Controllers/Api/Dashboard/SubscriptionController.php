@@ -45,7 +45,9 @@ class SubscriptionController extends Controller
             'ends_at' => now()->addMonth(),
         ]);*/
 
+
         $user = auth()->user(); // Admin user
+
         $databaseName = 'gym_' . $user->id;
 
         Config::set('database.connections.tenant.database', $databaseName);
