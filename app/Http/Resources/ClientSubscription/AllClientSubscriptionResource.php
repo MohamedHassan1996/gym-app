@@ -22,7 +22,7 @@ class AllClientSubscriptionResource extends JsonResource
             'clientName' => $this->client->user->name,
             //'lastSubscribedDate' => $this->subscriptions->first()->subscription_date,
             'leftDaysForNextSubscription' => $this->getDaysLeftForNextSubscription(),
-            'courseName' => $this->course->sportCategory->name,
+            'courseName' => $this->course->name,
             'status' => (int)$this->status
         ];
 
