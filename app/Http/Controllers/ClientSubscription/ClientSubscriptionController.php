@@ -42,7 +42,7 @@ class ClientSubscriptionController extends Controller
             ->with([
                 'client',
                 'course' => function ($query) {
-                    $query->select('id', 'name', 'start_at', 'sport_category_id'); // Only the needed fields
+                    $query->select('id', 'name', 'start_at'); // Only the needed fields
 
                 },
                 'subscriptions' => function ($query) {
