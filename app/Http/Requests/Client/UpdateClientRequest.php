@@ -38,7 +38,7 @@ class UpdateClientRequest extends FormRequest
             'password'=> [
                 'sometimes',
                 'nullable',
-                Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
+                Password::min(8)
             ],
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],
             'description' => 'nullable',
