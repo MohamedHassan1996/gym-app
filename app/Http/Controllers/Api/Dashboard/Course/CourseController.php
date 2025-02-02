@@ -60,10 +60,13 @@ class CourseController extends Controller
              $data = $createCourseRequest->validated();
 
              $this->switchDatabase();
+             DB::connection('tenant')->beginTransaction();
+
              // Create course
              $this->courseService->createCourse($data);
 
              DB::commit();
+             DB::connection('tenant')->commit();
 
              return response()->json([
                 'message' => __('messages.success.created')
