@@ -34,13 +34,9 @@ class ClientCourseController extends Controller
         ->with([
             'client',
             'course' => function ($query) {
-                $query->select('id', 'name', 'start_at', 'sport_category_id') // Only the needed fields
-                    ->with([
-                        'sportCategory' => function ($query) {
-                            $query->select('id', 'name'); // Modify this as per the fields you need from supportCategory
-                        }
-                    ]);
-            },
+                $query->select('id', 'name', 'start_at'); // Only the needed fields
+
+            }
         ])
         ->where('client_id', $request->clientId)
         ->whereNull('deleted_at')

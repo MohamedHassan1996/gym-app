@@ -21,7 +21,7 @@ class AllClientCourseResource extends JsonResource
             'registrationDate' => Carbon::parse($this->start_date)->format('d/m/Y'),
             //'lastSubscribedDate' => $this->subscriptions->first()->subscription_date,
             //'leftDaysForNextSubscription' => $this->getDaysLeftForNextSubscription(),
-            'courseName' => $this->course->sportCategory->name,
+            'courseName' => $this->title,
             'status' => (int)$this->status
         ];
 
