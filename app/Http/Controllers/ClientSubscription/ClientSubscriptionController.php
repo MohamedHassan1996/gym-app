@@ -78,6 +78,7 @@ class ClientSubscriptionController extends Controller
             DB::beginTransaction();
 
             $this->switchDatabase();
+            DB::connection('tenant')->beginTransaction();
 
             $course = Course::find($request->courseId);
 
@@ -98,6 +99,7 @@ class ClientSubscriptionController extends Controller
             ]);
 
             DB::commit();
+            Db::connection('tenant')->commit();
 
             return response()->json([
                 'message' => __('messages.success.created')

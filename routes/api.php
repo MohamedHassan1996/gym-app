@@ -92,6 +92,8 @@ Route::prefix('v1/{locale}/dashboard/subscriptions')->where(['lang' => 'it|en'])
 
 Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [ClientCourseController::class, 'index']);
+    Route::post('create', [ClientCourseController::class, 'create']);
+    Route::delete('delete', [ClientCourseController::class, 'delete']);
 });
 
 Route::prefix('v1/{locale}/dashboard/new-subscription')->where(['lang' => 'it|en'])->group(function(){

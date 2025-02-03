@@ -5,9 +5,13 @@ namespace App\Http\Controllers\ClientCourse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientCourse\AllClientCourseCollection;
 use App\Models\Client\ClientCourse;
+use App\Models\Client\ClientCourseSubscription;
+use App\Models\Course\Course;
 use App\Traits\SwitchDbConnection;
 use App\Utils\PaginateCollection;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientCourseController extends Controller
 {
@@ -45,5 +49,60 @@ class ClientCourseController extends Controller
         return response()->json(
             new AllClientCourseCollection(PaginateCollection::paginate($clientCourses, $request->pageSize?$request->pageSize:10))
         , 200);
+    }
+
+    public function create(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->switchDatabase();
+            DB::connection('tenant')->beginTransaction();
+
+            $course = Course::find($request->courseId);
+
+            $courseClient = ClientCourse::create([
+                'client_id' => $request->clientId,
+                'course_id' => $request->courseId,
+                'start_date' => $request->subscriptionDate,
+                'status' => 1
+            ]);
+
+
+            ClientCourseSubscription::create([
+                'client_course_id' => $courseClient->id,
+                'subscription_date' => $request->subscriptionDate,
+                'end_at' => Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths),
+                'number_of_months' => $request->numberOfMonths,
+                'price' => $course->price * $request->numberOfMonths,
+            ]);
+
+            DB::commit();
+            Db::connection('tenant')->commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function delete(Request $request)
+    {
+
+        try {
+            DB::beginTransaction();
+            $this->switchDatabase();
+            DB::connection('tenant')->beginTransaction();
+
+            $clientCourse = ClientCourse::find($request->clientCourseId);
+            $clientCourse->delete();
+
+            DB::connection('tenant')->commit();
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 }
