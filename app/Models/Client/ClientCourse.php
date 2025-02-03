@@ -24,13 +24,13 @@ class ClientCourse extends Model
         'status' => 'integer'
     ];
 
-    public static function boot()
+    /*public static function boot()
     {
         parent::boot();
         static::deleting(function ($model) {
             ClientCourseSubscription::where('client_course_id', $model->id)->delete();
         });
-    }
+    }*/
 
     public function client()
     {

@@ -5,6 +5,7 @@ namespace App\Models\Course;
 use App\Enums\Course\CourseStatus;
 use App\Models\Client\Client;
 use App\Models\Client\ClientCourse;
+use App\Models\Client\ClientCourseSubscription;
 use App\Models\Sport\SportCategory;
 use App\Models\Trainer\Trainer;
 use App\Traits\CreatedUpdatedBy;
@@ -37,7 +38,10 @@ class Course extends Model
     {
         parent::boot();
         static::deleted(function ($model) {
-            ClientCourse::where('course_id', $model->id)->delete();
+            ClientCourse::where('course_id', $model->id)->get()->each(function ($clientCourse) {
+                ClientCourseSubscription::where('client_course_id', $clientCourse->id)->delete();
+                $clientCourse->delete();
+            });
         });
 
     }
