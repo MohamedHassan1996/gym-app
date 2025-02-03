@@ -97,10 +97,11 @@ class ClientDocumentController extends Controller
     {
 
         try {
-            DB::connection('tenant')->beginTransaction();
             $data = $request->all();
 
             $this->switchDatabase();
+            DB::connection('tenant')->beginTransaction();
+
 
             $clientDocument = ClientDocument::find($request->clientDocumentId);
             $clientDocument->update([
