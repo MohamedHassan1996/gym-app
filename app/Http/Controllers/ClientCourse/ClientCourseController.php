@@ -80,6 +80,10 @@ class ClientCourseController extends Controller
             DB::commit();
             Db::connection('tenant')->commit();
 
+            return response()->json([
+                'message' => __('messages.success.created')
+            ], 200);
+
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -99,6 +103,10 @@ class ClientCourseController extends Controller
 
             DB::connection('tenant')->commit();
             DB::commit();
+
+            return response()->json([
+                'message' => __('messages.success.deleted')
+            ], 200);
 
         } catch (\Throwable $th) {
             DB::rollBack();
