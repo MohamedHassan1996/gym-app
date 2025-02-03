@@ -24,6 +24,14 @@ class ClientCourse extends Model
         'status' => 'integer'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function ($model) {
+            $model->subscriptions()->delete();
+        });
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id', 'id');

@@ -33,6 +33,15 @@ class Course extends Model
         'is_active' => CourseStatus::class
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function ($course) {
+            $course->clientCourses()->delete();
+        });
+
+    }
+
     // public function sportCategory()
     // {
     //     return $this->belongsTo(SportCategory::class);
