@@ -48,9 +48,10 @@ class ClientDocumentController extends Controller
      public function create(Request $request)
      {
          try {
-             DB::connection('tenant')->beginTransaction();
 
              $this->switchDatabase();
+             DB::connection('tenant')->beginTransaction();
+
 
              $data = $request->all();
 
