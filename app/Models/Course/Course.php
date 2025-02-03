@@ -36,8 +36,8 @@ class Course extends Model
     public static function boot()
     {
         parent::boot();
-        static::deleted(function ($course) {
-            $course->clientCourses()->delete();
+        static::deleted(function ($model) {
+            ClientCourse::where('course_id', $model->id)->delete();
         });
 
     }
