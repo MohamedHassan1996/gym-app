@@ -9,11 +9,13 @@ use App\Http\Resources\User\AllUserDataResource;
 use App\Http\Resources\User\AllUserCollection;
 use App\Models\Client\Client;
 use App\Models\Client\ClientCourse;
+use App\Models\Client\ClientCourseSubscription;
 use App\Models\Course\Course;
 use App\Models\Trainer\Trainer;
 use App\Utils\PaginateCollection;
 use App\Services\User\UserService;
 use App\Traits\SwitchDbConnection;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,7 +50,13 @@ class HomeController extends Controller
         $trainers = Trainer::count();
         $courses = Course::count();
         $subscriptions = ClientCourse::where('status', 1)->count();
-        $endedSubscriptions = 0;
+
+        $today = Carbon::today();
+        $fiveDaysLater = Carbon::today()->addDays(5);
+
+        $endedSubscriptions = ClientCourseSubscription::where('end_at', '<', $today)
+            ->orWhereBetween('end_at', [$today, $fiveDaysLater])
+            ->count();
 
         return response()->json(
             [
