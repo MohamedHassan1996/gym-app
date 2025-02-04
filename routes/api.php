@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Dashboard\Client\ClientController;
 use App\Http\Controllers\Api\Dashboard\Client\ClientDocumentController;
 use App\Http\Controllers\Api\Dashboard\Course\CourseController;
+use App\Http\Controllers\Api\Dashboard\Course\CoursePriceController;
 use App\Http\Controllers\Api\Dashboard\Home\HomeController;
 use App\Http\Controllers\Api\Dashboard\SportCategory\SportCategoryController;
 use App\Http\Controllers\Api\Dashboard\User\UserController;
@@ -117,6 +118,9 @@ Route::prefix('v1/{lang}/dashboard/selects')->where(['lang' => 'it|en'])->group(
     Route::get('', [SelectController::class, 'getSelects']);
 });
 
+Route::prefix('v1/{lang}/dashboard/course-price')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [CoursePriceController::class, 'index']);
+});
 
 
 

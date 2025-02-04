@@ -95,7 +95,7 @@ class ClientSubscriptionController extends Controller
                 'subscription_date' => $request->subscriptionDate,
                 'end_at' => Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths),
                 'number_of_months' => $request->numberOfMonths,
-                'price' => $course->price * $request->numberOfMonths,
+                'price' => $course->amount,
             ]);
 
             DB::commit();

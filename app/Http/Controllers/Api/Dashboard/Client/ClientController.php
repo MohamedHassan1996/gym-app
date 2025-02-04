@@ -89,7 +89,7 @@ class ClientController extends Controller
                     'subscription_date' => $clientCourseData['subscriptionDate'],
                     'end_at' => Carbon::parse($clientCourseData['subscriptionDate'])->addMonths($clientCourseData['numberOfMonths']),
                     'number_of_months' => $clientCourseData['numberOfMonths'],
-                    'price' => $course->price * $clientCourseData['numberOfMonths'],
+                    'price' => $clientCourseData['amount'],
                 ]);
 
 
