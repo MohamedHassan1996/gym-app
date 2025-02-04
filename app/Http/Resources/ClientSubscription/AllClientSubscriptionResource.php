@@ -42,7 +42,7 @@ class AllClientSubscriptionResource extends JsonResource
         $currentDate = Carbon::now(); // Today's date
 
         // Determine the actual start date for calculation
-        $actualStartDate = $registrationDate->greaterThan($subscriptionStart)
+        $actualStartDate = $registrationDate->greaterThan($subscriptionStart) || $registrationDate->lessThan($subscriptionStart)
             ? $registrationDate
             : $subscriptionStart;
 
