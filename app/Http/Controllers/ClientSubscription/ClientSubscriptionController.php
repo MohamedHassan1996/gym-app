@@ -127,7 +127,7 @@ class ClientSubscriptionController extends Controller
                 'subscriptionDate' => $clientCourseSubscriptions->subscription_date,
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
                 'price' => $clientCourseSubscriptions->price,
-                'subscriptionStatus' => $clientCourse->course->status
+                'subscriptionStatus' => $clientCourse->status
             ]
         ], 200);
     }
