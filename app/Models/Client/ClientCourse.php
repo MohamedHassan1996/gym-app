@@ -20,7 +20,7 @@ class ClientCourse extends Model
         'status',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'status' => 'integer'
     ];
 
