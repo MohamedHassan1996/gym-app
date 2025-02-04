@@ -124,7 +124,7 @@ class ClientSubscriptionController extends Controller
         return response()->json([
             'data' => [
                 'clientCourseId' => $clientCourse->id,
-                'subscriptionDate' => $clientCourseSubscriptions->subscription_date,
+                'subscriptionDate' => Carbon::parse($clientCourseSubscriptions->subscription_date)->format('d/m/Y'),
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
                 'price' => $clientCourseSubscriptions->price,
                 'subscriptionStatus' => (int)$clientCourse->status
