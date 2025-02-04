@@ -121,12 +121,13 @@ class ClientSubscriptionController extends Controller
 
         $clientCourse = ClientCourse::find($request->clientCourseId);
         $clientCourseSubscriptions = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
-
         return response()->json([
             'data' => [
                 'clientCourseId' => $clientCourse->id,
                 'subscriptionDate' => $clientCourseSubscriptions->subscription_date,
-                'numberOfMonths' => $clientCourseSubscriptions->number_of_months
+                'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
+                'price' => $clientCourseSubscriptions->price,
+                'subscriptionStatus' => $clientCourse->course->status
             ]
         ], 200);
     }
