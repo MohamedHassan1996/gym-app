@@ -43,7 +43,7 @@ class CoursePriceController extends Controller
 
         return response()->json([
             'data' => [
-                'coursePrice' => $coursePrice
+                'coursePrice' => $coursePrice->price
             ]
         ]);
 
