@@ -20,6 +20,10 @@ class ClientCourseSubscription extends Model
         'price'
     ];
 
+    protected $casts = [
+        'price' => 'float'
+    ];
+
     public function course()
     {
         return $this->belongsTo(ClientCourse::class, 'client_course_id', 'id');
