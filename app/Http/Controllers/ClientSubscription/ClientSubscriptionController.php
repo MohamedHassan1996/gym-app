@@ -149,6 +149,8 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
 
+            $clientSubscriptionMonths = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->sum('number_of_months');
+
             $subscriptionDate = $request->subscriptionDate;
 
             // Check if the date is in `d/m/Y` format, and transform it
@@ -163,7 +165,7 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription->subscription_date = $subscriptionDate;
             $clientSubscription->number_of_months = $request->numberOfMonths;
-            $clientSubscription->end_at = Carbon::parse($subscriptionDate)->addMonths($request->numberOfMonths);
+            $clientSubscription->end_at = Carbon::parse($clientCourse->start_date)->addMonths($request->numberOfMonths + $clientSubscriptionMonths);
             $clientSubscription->price = $request->amount;
             $clientSubscription->save();
 
