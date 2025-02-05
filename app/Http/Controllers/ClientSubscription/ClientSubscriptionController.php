@@ -128,7 +128,7 @@ class ClientSubscriptionController extends Controller
                 'subscriptionDate' => Carbon::parse($clientCourseSubscriptions->subscription_date)->format('d/m/Y'),
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
                 'price' => $clientCourseSubscriptions->price,
-                'coursePrice' => $course->price
+                'coursePrice' => $course->price,
                 'subscriptionStatus' => $clientCourse->status
             ]
         ], 200);
