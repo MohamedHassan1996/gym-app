@@ -121,12 +121,14 @@ class ClientSubscriptionController extends Controller
 
         $clientCourse = ClientCourse::find($request->clientCourseId);
         $clientCourseSubscriptions = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
+        $course = Course::find($clientCourse->course_id);
         return response()->json([
             'data' => [
                 'clientCourseId' => $clientCourse->id,
                 'subscriptionDate' => Carbon::parse($clientCourseSubscriptions->subscription_date)->format('d/m/Y'),
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
                 'price' => $clientCourseSubscriptions->price,
+                'coursePrice' => $course->price
                 'subscriptionStatus' => $clientCourse->status
             ]
         ], 200);
