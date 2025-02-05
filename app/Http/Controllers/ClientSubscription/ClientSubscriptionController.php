@@ -149,16 +149,24 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
 
-            if ($clientCourse->subscriptions()->count() > 1) {
-                $clientSubscription->start_date = Carbon::parse($request->subscriptionDate)->format('Y-m-d');
+            $subscriptionDate = $request->subscriptionDate;
+
+            // Check if the date is in `d/m/Y` format, and transform it
+            if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $subscriptionDate)) {
+                $subscriptionDate = Carbon::createFromFormat('d/m/Y', $subscriptionDate)->format('Y-m-d');
+            }
+
+            if ($clientCourse->subscriptions()->count() == 1) {
+                $clientSubscription->start_date = $subscriptionDate;
                 $clientSubscription->save();
             }
 
-            $clientSubscription->subscription_date = Carbon::parse($request->subscriptionDate)->format('Y-m-d');
+            $clientSubscription->subscription_date = $subscriptionDate;
             $clientSubscription->number_of_months = $request->numberOfMonths;
-            $clientSubscription->end_at = Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths);
+            $clientSubscription->end_at = Carbon::parse($subscriptionDate)->addMonths($request->numberOfMonths);
             $clientSubscription->price = $request->amount;
             $clientSubscription->save();
+
 
             DB::commit();
 
