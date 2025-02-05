@@ -31,7 +31,8 @@ class Course extends Model
 
     protected $casts = [
         'classes' => 'array',
-        'is_active' => CourseStatus::class
+        'is_active' => CourseStatus::class,
+        'price' => 'float',
     ];
 
     public static function boot()
