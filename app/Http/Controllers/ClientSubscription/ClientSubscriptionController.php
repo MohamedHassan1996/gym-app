@@ -149,6 +149,11 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
 
+            if ($clientCourse->subscriptions()->count() > 1) {
+                $clientSubscription->start_date = Carbon::parse($request->subscriptionDate)->format('Y-m-d');
+                $clientSubscription->save();
+            }
+
             $clientSubscription->subscription_date = Carbon::parse($request->subscriptionDate)->format('Y-m-d');
             $clientSubscription->number_of_months = $request->numberOfMonths;
             $clientSubscription->end_at = Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths);
