@@ -67,13 +67,15 @@ class ClientCourse extends Model
             ? $registrationDate
             : $subscriptionStart;
 
-            dd($actualStartDate);
 
 
         // Ensure we're counting from "now" or the actual start date, whichever is later
         $effectiveDate = $currentDate->greaterThan($actualStartDate)
             ? $currentDate
             : $actualStartDate;
+
+            dd($effectiveDate);
+
 
         // Calculate the days left from the effective date to the subscription end date
         $leftDays = $effectiveDate->diffInDays($subscriptionEnd, false); // Use `false` for signed difference
