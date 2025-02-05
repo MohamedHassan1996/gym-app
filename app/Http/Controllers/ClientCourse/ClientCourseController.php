@@ -71,7 +71,7 @@ class ClientCourseController extends Controller
 
             ClientCourseSubscription::create([
                 'client_course_id' => $courseClient->id,
-                'subscription_date' => $request->subscriptionDate,
+                'subscription_date' => Carbon::parse($request->subscriptionDate)->format('Y-m-d'),
                 'end_at' => Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths),
                 'number_of_months' => $request->numberOfMonths,
                 'price' => $request->amount,
