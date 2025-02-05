@@ -149,7 +149,7 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
 
-            $clientSubscriptionMonths = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->sum('number_of_months');
+            $clientSubscriptionMonths = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->where('id', '!=', $clientSubscription->id)->sum('number_of_months');
 
             $subscriptionDate = $request->subscriptionDate;
 
