@@ -41,10 +41,12 @@ class RenewClientSubscriptionController extends Controller
 
             $course = Course::find($clientCourse->course_id);
 
+            $clientCourseSubscriptionMonths = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->sum('number_of_months');
+
             ClientCourseSubscription::create([
                 'client_course_id' => $clientCourse->id,
                 'subscription_date' => $request->subscriptionDate,
-                'end_at' => Carbon::parse($request->subscriptionDate)->addMonths($request->numberOfMonths),
+                'end_at' => Carbon::parse($clientCourse->start_date)->addMonths($request->numberOfMonths + $clientCourseSubscriptionMonths),
                 'number_of_months' => $request->numberOfMonths,
                 'price' => $course->price * $request->numberOfMonths,
             ]);
