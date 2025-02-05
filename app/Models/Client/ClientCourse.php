@@ -80,4 +80,37 @@ class ClientCourse extends Model
 
         return $leftDays;
     }
+
+    public function getDaysLeftForNextSubscriptionTwo()
+    {
+        $registrationDate = Carbon::parse($this->start_date); // The date the user registered
+        $latestSubscription = $this->subscriptions->latest()->first(); // Assuming subscriptions are sorted by the latest first
+
+        if (!$latestSubscription) {
+            return 'No subscription found.';
+        }
+
+        $subscriptionStart = Carbon::parse($latestSubscription->subscription_date);
+        $subscriptionEnd = Carbon::parse($latestSubscription->end_at);
+        $currentDate = Carbon::now(); // Today's date
+
+        // Determine the actual start date for calculation
+        $actualStartDate = $registrationDate->greaterThan($subscriptionStart) || $registrationDate->lessThan($subscriptionStart)
+            ? $registrationDate
+            : $subscriptionStart;
+
+        // Ensure we're counting from "now" or the actual start date, whichever is later
+        $effectiveDate = $currentDate->greaterThan($actualStartDate)
+            ? $currentDate
+            : $actualStartDate;
+
+        // Calculate the days left from the effective date to the subscription end date
+        $leftDays = $effectiveDate->diffInDays($subscriptionEnd, false); // Use `false` for signed difference
+
+        if ($leftDays < 0) {
+            return $leftDays;
+        }
+
+        return $leftDays;
+    }
 }

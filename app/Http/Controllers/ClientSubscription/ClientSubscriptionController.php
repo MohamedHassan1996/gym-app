@@ -130,7 +130,7 @@ class ClientSubscriptionController extends Controller
                 'price' => $clientCourseSubscriptions->price,
                 'coursePrice' => $course->price,
                 'subscriptionStatus' => $clientCourse->status,
-                'leftDaysForNextSubscription' => $clientCourse->getDaysLeftForNextSubscription()
+                'leftDaysForNextSubscription' => $clientCourse->getDaysLeftForNextSubscriptionTwo()
             ]
         ], 200);
     }
