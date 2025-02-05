@@ -84,7 +84,7 @@ class ClientCourse extends Model
     public function getDaysLeftForNextSubscriptionTwo()
     {
         $registrationDate = Carbon::parse($this->start_date); // The date the user registered
-        $latestSubscription = $this->subscriptions->latest()->first(); // Assuming subscriptions are sorted by the latest first
+        $latestSubscription = $this->subscriptions()->latest()->first(); // Assuming subscriptions are sorted by the latest first
 
         if (!$latestSubscription) {
             return 'No subscription found.';
