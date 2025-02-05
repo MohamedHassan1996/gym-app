@@ -61,12 +61,14 @@ class ClientCourse extends Model
         $subscriptionEnd = Carbon::parse($latestSubscription->end_at);
         $currentDate = Carbon::now(); // Today's date
 
-        dd($latestSubscription->toArray());
 
         // Determine the actual start date for calculation
         $actualStartDate = $registrationDate->greaterThan($subscriptionStart) || $registrationDate->lessThan($subscriptionStart)
             ? $registrationDate
             : $subscriptionStart;
+
+            dd($actualStartDate);
+
 
         // Ensure we're counting from "now" or the actual start date, whichever is later
         $effectiveDate = $currentDate->greaterThan($actualStartDate)
