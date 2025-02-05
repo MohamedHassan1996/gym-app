@@ -157,8 +157,8 @@ class ClientSubscriptionController extends Controller
             }
 
             if ($clientCourse->subscriptions()->count() == 1) {
-                $clientSubscription->start_date = $subscriptionDate;
-                $clientSubscription->save();
+                $clientCourse->start_date = $subscriptionDate;
+                $clientCourse->save();
             }
 
             $clientSubscription->subscription_date = $subscriptionDate;
