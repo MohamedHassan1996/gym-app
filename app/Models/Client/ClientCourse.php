@@ -61,13 +61,10 @@ class ClientCourse extends Model
         $subscriptionEnd = Carbon::parse($latestSubscription->end_at);
         $currentDate = Carbon::now(); // Today's date
 
-
         // Determine the actual start date for calculation
         $actualStartDate = $registrationDate->greaterThan($subscriptionStart) || $registrationDate->lessThan($subscriptionStart)
             ? $registrationDate
             : $subscriptionStart;
-
-
 
         // Ensure we're counting from "now" or the actual start date, whichever is later
         $effectiveDate = $currentDate->greaterThan($actualStartDate)
@@ -77,6 +74,9 @@ class ClientCourse extends Model
         // Calculate the days left from the effective date to the subscription end date
         $leftDays = $effectiveDate->diffInDays($subscriptionEnd, false); // Use `false` for signed difference
 
+        if ($leftDays < 0) {
+            return $leftDays;
+        }
 
         return $leftDays;
     }
