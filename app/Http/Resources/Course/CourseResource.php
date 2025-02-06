@@ -43,7 +43,7 @@ class CourseResource extends JsonResource
             'endAt' => $this->end_at,
             'description' => $this->description??'',
             'classes' => $this->classes??[],
-            'price' => $this->price,
+            'price' => (string)$this->price,
             'isActive' => $this->is_active,
             'totalSubscribers' => $this->activeSubscriptions??0,
             'trainers' => $trainers,
