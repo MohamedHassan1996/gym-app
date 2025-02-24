@@ -12,8 +12,11 @@ use App\Http\Controllers\Api\Dashboard\User\UserController;
 use App\Http\Controllers\Api\Dashboard\SubscriptionController;
 use App\Http\Controllers\Api\Dashboard\Trainer\TrainerController;
 use App\Http\Controllers\Api\Dashboard\Select\SelectController;
+use App\Http\Controllers\Api\Dashboard\DocumentType\DocumentTypeController;
+use App\Http\Controllers\Api\Dashboard\DocumentType\DocumentTypeEndPeriodController;
 use App\Http\Controllers\ClientCourse\ClientCourseController;
 use App\Http\Controllers\ClientSubscription\ClientSubscriptionController;
+use App\Http\Controllers\ClientSubscription\ClientSubscriptionRecordsController;
 use App\Http\Controllers\ClientSubscription\RenewClientSubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +61,15 @@ Route::prefix('v1/{locale}/dashboard/users')->where(['lang' => 'it|en'])->group(
 //     Route::delete('delete', [SportCategoryController::class, 'delete']);
 // });
 
+Route::prefix('v1/{locale}/dashboard/documents')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [DocumentTypeController::class, 'index']);
+    Route::post('create', [DocumentTypeController::class, 'create']);
+    Route::get('edit', [DocumentTypeController::class, 'edit']);
+    Route::put('update', [DocumentTypeController::class, 'update']);
+    Route::delete('delete', [DocumentTypeController::class, 'delete']);
+});
+
+
 Route::prefix('v1/{locale}/dashboard/trainers')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [TrainerController::class, 'index']);
     Route::post('create', [TrainerController::class, 'create']);
@@ -72,6 +84,10 @@ Route::prefix('v1/{locale}/dashboard/courses')->where(['lang' => 'it|en'])->grou
     Route::get('edit', [CourseController::class, 'edit']);
     Route::put('update', [CourseController::class, 'update']);
     Route::delete('delete', [CourseController::class, 'delete']);
+});
+
+Route::prefix('v1/{locale}/dashboard/document-end-date')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [DocumentTypeEndPeriodController::class, 'index']);
 });
 
 Route::prefix('v1/{locale}/dashboard/clients')->where(['lang' => 'it|en'])->group(function(){
@@ -90,6 +106,11 @@ Route::prefix('v1/{locale}/dashboard/subscriptions')->where(['lang' => 'it|en'])
     Route::delete('delete', [ClientSubscriptionController::class, 'delete']);
     Route::put('change-status', [ClientSubscriptionController::class, 'changeStatus']);
 });
+
+Route::prefix('v1/{locale}/dashboard/client-subscription-records')->where(['lang' => 'it|en'])->group(function(){
+    Route::get('', [ClientSubscriptionRecordsController::class, 'index']);
+});
+
 
 Route::prefix('v1/{locale}/dashboard/client-courses')->where(['lang' => 'it|en'])->group(function(){
     Route::get('', [ClientCourseController::class, 'index']);

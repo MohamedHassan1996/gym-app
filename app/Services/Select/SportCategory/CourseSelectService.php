@@ -9,10 +9,21 @@ use App\Traits\SwitchDbConnection;
 class CourseSelectService
 {
     use SwitchDbConnection;
-    public function getAllCourses()
+    public function getAllCourses($clientId = null)
     {
         $this->switchDatabase();
-        return Course::select(['id as value', 'name as label'])->get();
+
+        $query = Course::select(['id as value', 'name as label']);
+
+        if ($clientId) {
+            $query->whereNotIn('id', function ($subQuery) use ($clientId) {
+                $subQuery->select('course_id')
+                        ->from('client_courses')
+                        ->where('client_id', $clientId);
+            });
+        }
+
+        return $query->get();
     }
 
 }

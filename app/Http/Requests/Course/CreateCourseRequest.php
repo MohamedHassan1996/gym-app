@@ -35,6 +35,7 @@ class CreateCourseRequest extends FormRequest
             'price' => 'required|numeric',
             'isActive' => ['required', new Enum(CourseStatus::class)],
             'trainerIds' => 'required',
+            'beforeAlertDay' => 'required'
             //'sportCategoryId' => 'required',
         ];
     }

@@ -42,6 +42,7 @@ class CourseService{
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
+            'before_alert_day' => $courseData['beforeAlertDay']
             //'sport_category_id' => $courseData['sportCategoryId'],
         ]);
 
@@ -70,6 +71,7 @@ class CourseService{
             'classes' => $courseData['classes'],
             'price' => $courseData['price'],
             'is_active' => CourseStatus::from($courseData['isActive'])->value,
+            'before_alert_day' => $courseData['beforeAlertDay']
             //'sport_category_id' => $courseData['sportCategoryId'],
         ]);
 

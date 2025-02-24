@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Course;
+namespace App\Http\Requests\DocumentType;
 
-use App\Enums\Course\CourseStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\Rules\Enum;
+use App\Traits\SwitchDbConnection;
 
-class UpdateCourseRequest extends FormRequest
+class UpdateDocumentTypeRequest extends FormRequest
 {
+    use SwitchDbConnection;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,18 +25,14 @@ class UpdateCourseRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $this->switchDatabase();
+
         return [
-            'courseId' => 'required',
-            'name' => 'required',
-            'startAt' => 'required',
-            'endAt' => 'nullable',
-            'description' => 'required',
-            'classes' => 'required',
-            'price' => 'required|numeric',
-            'isActive' => ['required', new Enum(CourseStatus::class)],
-            'trainerIds' => 'required',
-            'beforeAlertDay' => 'required'
-            //'sportCategoryId' => 'required',
+            'documentTypeId' => 'required',
+            'documentName' => "unique:tenant.document_types,name,{$this->documentTypeId}", // Specify the landlord connection explicitly
+            'period' => 'required',
+            'periodType' => 'required',
         ];
     }
 

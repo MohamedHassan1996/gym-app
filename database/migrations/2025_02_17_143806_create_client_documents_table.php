@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('client_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
-            $table->foreignId('type_id')->constrained('parameter_values')->onDelete('cascade');
+            $table->foreignId('document_type_id')->constrained('document_types')->onDelete('cascade');
             $table->date('start_at')->nullable();
             $table->date('end_at')->nullable();
             $table->timestamps();

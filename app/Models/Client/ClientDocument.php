@@ -2,6 +2,7 @@
 
 namespace App\Models\Client;
 
+use App\Models\DocumentType\DocumentType;
 use App\Models\Parameter\ParameterValue;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,8 +20,8 @@ class ClientDocument extends Model
         'end_at',
     ];
 
-    public function parameter()
+    public function documentType()
     {
-        return $this->belongsTo(ParameterValue::class, 'document_type_id', 'id');
+        return $this->belongsTo(DocumentType::class, 'document_type_id', 'id');
     }
 }

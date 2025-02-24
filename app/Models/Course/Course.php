@@ -27,6 +27,7 @@ class Course extends Model
         'classes',
         'price',
         'is_active',
+        'before_alert_day'
     ];
 
     protected $casts = [

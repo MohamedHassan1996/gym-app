@@ -3,9 +3,8 @@
 
 namespace App\Services\Select;
 
-use App\Services\Select\Company\BranchSelectService;
-use App\Services\Select\Company\CompanySelectService;
-use App\Services\Select\Company\CustomerSelectService;
+
+use App\Services\Select\DocumentType\DocumentTypeSelectService;
 use App\Services\Select\Parameter\ParameterSelectService;
 use App\Services\Select\SportCategory\CourseSelectService;
 use App\Services\Select\SportCategory\SportCategorySelectService;
@@ -66,6 +65,7 @@ class SelectService
             'parameters' => ['getAllParameters', ParameterSelectService::class],
             'sportCategories' => ['getAllSportCategories', SportCategorySelectService::class],
             'courses' => ['getAllCourses', CourseSelectService::class],
+            'documentTypes' => ['getAllDocuments', DocumentTypeSelectService::class],
         ];
 
         $paramValue = null; // Initialize paramValue

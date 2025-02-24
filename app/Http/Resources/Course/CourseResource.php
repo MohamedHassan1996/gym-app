@@ -40,7 +40,7 @@ class CourseResource extends JsonResource
             'courseId' => $this->id,
             'name' => $this->name,
             'startAt' => $this->start_at,
-            'endAt' => $this->end_at,
+            'endAt' => $this->end_at??"",
             'description' => $this->description??'',
             'classes' => $this->classes??[],
             'price' => (string)$this->price,
@@ -51,7 +51,8 @@ class CourseResource extends JsonResource
             //     'sportCategoryId' => $this->sport_category_id,
             //     'name' => $this->sportCategory?->name??"",
             // ],
-            'clients' => $clients
+            'clients' => $clients,
+            'beforeAlertDay' => $this->before_alert_day
         ];
     }
 }

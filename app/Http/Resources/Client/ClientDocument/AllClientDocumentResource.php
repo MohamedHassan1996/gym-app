@@ -17,9 +17,9 @@ class AllClientDocumentResource extends JsonResource
     public function toArray(Request $request): array
     {
         $parameters = [];
-        if ($this->parameter) {
-            $parameters['documentTypeId'] = $this->parameter->id;
-            $parameters['documentTypeName'] = $this->parameter->name;
+        if ($this->documentType) {
+            $parameters['documentTypeId'] = $this->documentType->id;
+            $parameters['documentTypeName'] = $this->documentType->name;
         }
         return [
             'clientDocumentId' => $this->id,

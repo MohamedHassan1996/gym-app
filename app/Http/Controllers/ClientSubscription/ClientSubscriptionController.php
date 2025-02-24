@@ -39,32 +39,46 @@ class ClientSubscriptionController extends Controller
         $filters = $request->filter;
 
         $clientCourses = ClientCourse::select('id', 'client_id', 'course_id', 'start_date', 'status')
-            ->with([
-                'client',
-                'course' => function ($query) {
-                    $query->select('id', 'name', 'start_at'); // Only the needed fields
+        ->with([
+            'client',
+            'course' => function ($query) {
+                $query->select('id', 'name', 'start_at', 'before_alert_day'); // Include before_alert_day
+            },
+            'subscriptions' => function ($query) {
+                $query->select('id', 'subscription_date', 'end_at', 'client_course_id')
+                    ->orderBy('end_at', 'desc');
+            }
+        ])
+        ->when($filters['clientId'] ?? null, function ($query) use ($filters) {
+            $query->where('client_id', $filters['clientId']);
+        })
+        ->when($filters['courseId'] ?? null, function ($query) use ($filters) {
+            $query->where('course_id', $filters['courseId']);
+        })
+        ->get()
+        ->map(function ($clientCourse) use ($filters) {
+            $latestSubscription = $clientCourse->subscriptions->first(); // Get latest subscription
 
-                },
-                'subscriptions' => function ($query) {
-                    $query->select('id', 'subscription_date', 'end_at', 'client_course_id')
-                        ->orderBy('end_at', 'desc');
+            if ($latestSubscription && $clientCourse->course) {
+                $alertDate = Carbon::parse($latestSubscription->end_at)
+                    ->subDays($clientCourse->course->before_alert_day);
+
+                $clientCourse->alerting = now()->greaterThanOrEqualTo($alertDate);
+            } else {
+                $clientCourse->alerting = false;
+            }
+
+            // If endedSubscriptions == 1, include only courses where the alert date has passed
+            if (isset($filters['endedSubscriptions']) && $filters['endedSubscriptions'] == 1) {
+                if (!$latestSubscription || now()->lessThan($alertDate)) {
+                    return null; // Exclude this course from the collection
                 }
-            ])
-            ->when($filters['clientId']??null, function ($query) use ($filters) {
-                $query->where('client_id', $filters['clientId']);
-            })
-            ->when($filters['courseId']??null, function ($query) use ($filters) {
-                $query->where('course_id', $filters['courseId']);
-            })
-            ->when(isset($filters['endedSubscriptions']) && $filters['endedSubscriptions'] == 1, function ($query) {
-                $query->whereHas('subscriptions', function ($subQuery) {
-                    $subQuery->where(function ($innerQuery) {
-                        $innerQuery->where('end_at', '<=', now())
-                            ->orWhereBetween('end_at', [now(), now()->addDays(5)]);
-                    });
-                });
-            })
-            ->get();
+            }
+
+            return $clientCourse;
+        })
+        ->filter(); // Remove null values from the collection
+
         return response()->json(
             new AllClientSubscriptionCollection(PaginateCollection::paginate($clientCourses, $request->pageSize?$request->pageSize:10))
         , 200);
@@ -88,7 +102,6 @@ class ClientSubscriptionController extends Controller
                 'start_date' => $request->subscriptionDate,
                 'status' => 1
             ]);
-
 
             ClientCourseSubscription::create([
                 'client_course_id' => $courseClient->id,
@@ -128,6 +141,7 @@ class ClientSubscriptionController extends Controller
                 'subscriptionDate' => Carbon::parse($clientCourseSubscriptions->subscription_date)->format('d/m/Y'),
                 'numberOfMonths' => $clientCourseSubscriptions->number_of_months,
                 'price' => $clientCourseSubscriptions->price,
+                'latestSubscriptionDate' => Carbon::parse($clientCourseSubscriptions->end_at)->format('d/m/Y'),
                 'coursePrice' => $course->price,
                 'subscriptionStatus' => $clientCourse->status,
                 'leftDaysForNextSubscription' => $clientCourse->getDaysLeftForNextSubscriptionTwo()
@@ -149,6 +163,7 @@ class ClientSubscriptionController extends Controller
 
             $clientSubscription = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->latest()->first();
 
+
             $clientSubscriptionMonths = ClientCourseSubscription::where('client_course_id', $clientCourse->id)->where('id', '!=', $clientSubscription->id)->sum('number_of_months');
 
             $subscriptionDate = $request->subscriptionDate;
@@ -156,6 +171,14 @@ class ClientSubscriptionController extends Controller
             // Check if the date is in `d/m/Y` format, and transform it
             if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $subscriptionDate)) {
                 $subscriptionDate = Carbon::createFromFormat('d/m/Y', $subscriptionDate)->format('Y-m-d');
+            }
+
+            if($clientCourse->subscriptions()->count() > 1) {
+                if($clientCourse->subscriptions()->latest()->skip(1)->first()->subscription_date > Carbon::parse($subscriptionDate)->format('Y-m-d H:i:s')) {
+                    return response()->json([
+                        'message' => 'Subscription date cannot be in the past'
+                    ], 401);
+                }
             }
 
             if ($clientCourse->subscriptions()->count() == 1) {

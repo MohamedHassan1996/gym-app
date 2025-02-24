@@ -75,25 +75,28 @@ class ClientController extends Controller
                  ...$data,
              ]);
 
-             foreach($data['clientCourses'] as $clientCourseData){
-                $course = Course::find($clientCourseData['courseId']);
-                $courseClient = ClientCourse::create([
-                    'client_id' => $client->id,
-                    'course_id' => $clientCourseData['courseId'],
-                    'start_date' => $clientCourseData['subscriptionDate'],
-                    'status' => 1
-                ]);
+             if(isset($data['clientCourses'])){
+                foreach($data['clientCourses'] as $clientCourseData){
+                    $course = Course::find($clientCourseData['courseId']);
+                    $courseClient = ClientCourse::create([
+                        'client_id' => $client->id,
+                        'course_id' => $clientCourseData['courseId'],
+                        'start_date' => $clientCourseData['subscriptionDate'],
+                        'status' => 1
+                    ]);
 
-                ClientCourseSubscription::create([
-                    'client_course_id' => $courseClient->id,
-                    'subscription_date' => $clientCourseData['subscriptionDate'],
-                    'end_at' => Carbon::parse($clientCourseData['subscriptionDate'])->addMonths($clientCourseData['numberOfMonths']),
-                    'number_of_months' => $clientCourseData['numberOfMonths'],
-                    'price' => $clientCourseData['amount'],
-                ]);
+                    ClientCourseSubscription::create([
+                        'client_course_id' => $courseClient->id,
+                        'subscription_date' => $clientCourseData['subscriptionDate'],
+                        'end_at' => Carbon::parse($clientCourseData['subscriptionDate'])->addMonths($clientCourseData['numberOfMonths']),
+                        'number_of_months' => $clientCourseData['numberOfMonths'],
+                        'price' => $clientCourseData['amount'],
+                    ]);
 
 
+                 }
              }
+
 
              DB::commit();
              DB::connection('tenant')->commit();
